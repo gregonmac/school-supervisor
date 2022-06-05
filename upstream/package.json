@@ -1,0 +1,27 @@
+{
+  "name": "school-supervisor",
+  "version": "1.0.0",
+  "description": "Project to replace the \"Ecole directe\" site by collect its data and report them into a more user friendly views",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregonmac/school-supervisor.git"
+  },
+  "keywords": [
+    "nodejs",
+    "mongo",
+    "azure key vault"
+  ],
+  "author": "gregonmac@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gregonmac/school-supervisor/issues"
+  },
+  "homepage": "https://github.com/gregonmac/school-supervisor#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
