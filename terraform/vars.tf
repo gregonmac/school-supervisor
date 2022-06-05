@@ -3,18 +3,15 @@
 variable "mongo_db_atlas" {
     description = "Mongo Atlas details"
     type=object({
+        organization=string
         project=string
         database=string
-        cluster_type=string
+        cluster=object({
+            name=string
+            type=string
+        })
         location=string
     })
-
-    default={
-        project="School Supervisor"
-        database="main"
-        cluster_type="M0"
-        location="francecentral"
-    }
 }
 
 variable "azure"{
