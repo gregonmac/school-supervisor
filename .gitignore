@@ -43,8 +43,7 @@ build/Release
 **/vars/*.tfvars
 **/.terraform
 **/.terraform.lock.hcl
-**/terraform.tfstate
-**/terraform.tfstate.backup
+**/terraform.tfstate*
 
 # Dependency directories
 node_modules/
