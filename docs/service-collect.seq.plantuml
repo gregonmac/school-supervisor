@@ -1,0 +1,50 @@
+@startuml
+
+actor "Déclancheur" as act
+
+box "School Supervisor" #LightBlue
+participant "Vault" as vault
+control "Service de collect" as col
+database "Mongo Atlas" as db
+end box
+participant "Ecole direct" as ed
+
+
+activate act
+act -> col : Start the grades analysis
+activate col
+== Configs & Secrets reading ==
+col -> vault : Get the ED authentication details
+activate vault
+vault --> col : ED connexion details
+deactivate vault
+
+col -> vault : Get the Mongo connexion string
+activate vault
+vault --> col : Connexion String
+deactivate vault
+
+== Grades reading ==
+col -> ed : [POST] Authentication
+activate ed
+ed --> col: token 
+col -> ed : [GET] get the grades list 
+ed --> col: [{grade}...]
+deactivate ed
+
+col --> col : Processing grade list to formated them
+
+== Storing ==
+col -> db : Store the formated grades
+activate db
+db --> col : Acknowledge
+deactivate db
+
+
+col --> act : Acknowledge
+deactivate col
+
+deactivate act
+
+
+@enduml
