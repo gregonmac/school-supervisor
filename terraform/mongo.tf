@@ -42,9 +42,38 @@ resource "azurerm_app_configuration_key" "cluster-connection-string" {
   label                  = "mongo"
   value                  = mongodbatlas_cluster.main.connection_strings[0].standard_srv
 }
+resource "azurerm_app_configuration_key" "connection-string" {
+  configuration_store_id = azurerm_app_configuration.configurationStore.id
+  key                    = "Mongo:Cluster:ConnectionString"
+  label                  = "mongo"
+  value                  = mongodbatlas_cluster.main.connection_strings[0].standard_srv
+}
+
+resource "azurerm_app_configuration_key" "mongo_user" {
+  configuration_store_id = azurerm_app_configuration.configurationStore.id
+  key                    = "Mongo:User:Login"
+  type                   = "vault"
+  label                  = "label1"
+  vault_key_reference    = azurerm_key_vault_secret.mongo_user.id
+
+  depends_on = [
+    azurerm_role_assignment.configurationStore_dataowner
+  ]
+}
+resource "azurerm_app_configuration_key" "mongo_credential" {
+  configuration_store_id = azurerm_app_configuration.configurationStore.id
+  key                    = "Mongo:User:Credential"
+  type                   = "vault"
+  label                  = "label1"
+  vault_key_reference    = azurerm_key_vault_secret.mongo_credential.id
+
+  depends_on = [
+    azurerm_role_assignment.configurationStore_dataowner
+  ]
+}
 
 output "cluster" {
-  value = mongodbatlas_cluster.main.connection_strings
+  value = mongodbatlas_cluster.main
 }
 
 resource "mongodbatlas_database_user" "main" {
